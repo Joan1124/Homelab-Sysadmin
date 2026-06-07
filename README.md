@@ -11,33 +11,33 @@ A fully documented Windows Server home lab built on Hyper-V running Windows Serv
 flowchart TD
     HomeNet["Home Network — 192.168.4.x"]
 
-    subgraph Hyper-V Host["Hyper-V Host — Laptop"]
+    subgraph HyperV["Hyper-V Host — Laptop"]
 
         ExternalSwitch["External Switch\nBridged to home network"]
-        InternalSwitch["Internal Switch\n192.168.100.0/24"]
-        pfSenseInternal["pfSense Internal Switch\n192.168.200.0/24"]
 
         subgraph pfSense["pfSense CE 2.8.1"]
-            WAN["WAN — 192.168.4.124\nExternal Switch"]
-            LAN["LAN — 192.168.200.1\npfSense Internal Switch"]
-            Snort["Snort IPS — LAB Interface\nInline Mode"]
+            WAN["Adapter 1 — WAN\n192.168.4.124\nExternal Switch"]
+            LAN["Adapter 2 — LAN\n192.168.200.1\npfSense Internal Switch"]
+            LAB["Adapter 3 — LAB\n192.168.100.1\nInternal Switch"]
+            Snort["Snort IPS\nLAB Interface — Inline Mode"]
             OV["OpenVPN Server\nTunnel 10.0.8.0/24"]
         end
 
-        subgraph LabVMs["Lab VMs — 192.168.100.0/24"]
-            DC["WIN-89H2KGSP59Q\nDomain Controller\n192.168.100.1\nInternal Switch"]
-            MS["MEMBERSERVER01\nMember Server / IIS\n192.168.100.51\nInternal Switch"]
-            Win11["Win11 VM\nDomain Joined\nDHCP — 192.168.100.50-200\nInternal Switch"]
+        subgraph pfSenseSwitch["pfSense Internal Switch — 192.168.200.0/24"]
+            Win11["Win11 VM\nDomain Joined\nDHCP — 192.168.200.x"]
         end
+
+        subgraph InternalSwitch["Internal Switch — 192.168.100.0/24"]
+            DC["WIN-89H2KGSP59Q\nDomain Controller\n192.168.100.1"]
+            MS["MEMBERSERVER01\nMember Server / IIS\n192.168.100.51"]
+        end
+
     end
 
     HomeNet --> ExternalSwitch
     ExternalSwitch --> WAN
-    LAN --> pfSenseInternal
-    pfSenseInternal --> LabVMs
-    InternalSwitch --> DC
-    InternalSwitch --> MS
-    InternalSwitch --> Win11
+    LAN --> pfSenseSwitch
+    LAB --> InternalSwitch
 
     Laptop["Laptop — OpenVPN Client\n10.0.8.2"] -->|VPN Tunnel| OV
 ```
