@@ -16,11 +16,11 @@ flowchart TD
         ExternalSwitch["External Switch\nBridged to home network"]
 
         subgraph pfSense["pfSense CE 2.8.1"]
-            WAN["Adapter 1 — WAN\n192.168.4.124\nExternal Switch"]
-            LAN["Adapter 2 — LAN\n192.168.200.1\npfSense Internal Switch"]
-            LAB["Adapter 3 — LAB\n192.168.100.1\nInternal Switch"]
-            Snort["Snort IPS\nLAB Interface — Inline Mode"]
-            OV["OpenVPN Server\nTunnel 10.0.8.0/24"]
+           WAN["Adapter 1 — WAN\n192.168.4.124\nExternal Switch"]
+           LAN["Adapter 2 — LAN\n192.168.200.1\npfSense Internal Switch"]
+           LAB["Adapter 3 — LAB\n192.168.100.1\nInternal Switch"]
+           Snort["Snort IPS\nLAB Interface — Inline Mode"]
+           OV["OpenVPN Server\nTunnel 10.0.8.0/24"]
         end
 
         subgraph pfSenseSwitch["pfSense Internal Switch — 192.168.200.0/24"]
