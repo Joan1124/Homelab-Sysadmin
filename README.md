@@ -77,6 +77,34 @@ flowchart LR
     AD --> Backup
 ```
 
+
+---
+## Active Directory Hierarchy
+
+```
+joanlab.local
+└── My Lab
+    ├── Lab Users
+    │   ├── IT
+    │   ├── HR
+    │   ├── Sales
+    │   └── Customer_Service
+    ├── Lab Computers
+    │   ├── Servers
+    │   │   ├── WIN-89H2KGSP59Q (Domain Controller)
+    │   │   └── MEMBERSERVER01 (Member Server)
+    │   └── Workstations
+    │       └── Win11 VM
+    └── Groups
+        └── Security Groups
+            ├── SG_IT
+            ├── SG_HR
+            ├── SG_Sales
+            ├── SG_Customer_Service
+            ├── SG_Admins
+            └── SG_ServiceAccounts
+```
+
 ---
 
 ## Repository Structure
